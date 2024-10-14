@@ -1,0 +1,45 @@
+.table-header, .table-cell {
+  padding: 10px;
+}
+
+.toolbar {
+  padding: 20px;
+}
+
+.table-header {
+  width:100vw;
+  cursor: pointer; 
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-color: black;
+  border-style: double;
+}
+
+.table-header-row {
+  position: sticky;
+  top: 0;
+}
+
+.table-container {
+  height: 100vh;
+  overflow-y: scroll;
+  border-color: black;
+  border-width: 2px;
+}
+
+.table-cell{
+  text-align: center;
+}
+
+.arrow-down{
+  transform:rotate(180deg)
+}
+
+.toolbar{
+  padding: 20px;
+  width: 100wv;
+  background-color: white;
+  position: sticky;
+  top: 0;
+}

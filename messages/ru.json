@@ -1,0 +1,23 @@
+{
+    "Home": {
+        "headerTitle": {
+            "index": "Индекс",
+            "state": "Статус",
+            "id": "ID",
+            "documentName": "Название документа",
+            "documentDate": "Дата документа",
+            "stateTime": "Время статуса",
+            "documentNumber": "Номер документа",
+            "documentTotalAmount": "Общая сумма документа"
+        },
+        "document": {
+            "state": {
+                "SUBMITTED": "Отправлено",
+                "IN_PROCESS": "В процессе",
+                "ADDITIONAL_REVIEW": "Доп. проверка",
+                "REVIEW_COMPLETED": "Проверка завершена",
+                "INVALID": "Недействительно"
+            }
+        }
+    }
+}

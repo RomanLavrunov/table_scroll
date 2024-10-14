@@ -1,0 +1,23 @@
+{
+    "Home": {
+        "headerTitle": {
+            "index": "Indeks",
+            "state": "Staatus",
+            "id": "ID",
+            "documentName": "Dokumendi nimi",
+            "documentDate": "Dokumendi kuupäev",
+            "stateTime": "Staatuse aeg",
+            "documentNumber": "Dokumendi number",
+            "documentTotalAmount": "Dokumendi kogusumma"
+        },
+        "document": {
+            "state": {
+                "SUBMITTED": "Esitatud",
+                "IN_PROCESS": "Töötlemisel",
+                "ADDITIONAL_REVIEW": "Täiendav läbivaatus",
+                "REVIEW_COMPLETED": "Läbivaatus lõpetatud",
+                "INVALID": "Kehtetu"
+            }
+        }
+    }
+}
