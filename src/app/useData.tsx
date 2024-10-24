@@ -30,5 +30,6 @@ export const useData =<T extends string> () => {
     documentDate: DateTime.fromISO(item.documentDate).toFormat('dd-MM-yyyy'),
     stateTime: DateTime.fromISO(item.stateTime).toFormat('dd-MM-yyyy')
   })),[allDocuments])
+
    return [data]
 }

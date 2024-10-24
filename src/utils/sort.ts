@@ -10,7 +10,7 @@ export interface SortArrayParams<T> {
     sortKey: keyof DocumentGeneric<T>, 
     isAscending: boolean
 }
-export function sortArray({data, sortKey, isAscending: isAscending}: SortArrayParams<string>):DocumentGeneric<string>[] {
+export function sortArray({data, sortKey, isAscending}: SortArrayParams<string>):DocumentGeneric<string>[] {
 
     return data.sort((a, b) => {
         if(typeof a[sortKey] === "number" && typeof b[sortKey] === "number"){ 

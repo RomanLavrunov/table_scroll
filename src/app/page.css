@@ -17,15 +17,17 @@
 }
 
 .table-header-row {
-  position: sticky;
-  top: 0;
+    position: sticky;
+    top: 60px;
+    z-index: 100;
+    background-color: white;
 }
 
 .table-container {
   height: 100vh;
   overflow-y: scroll;
   border-color: black;
-  border-width: 2px;
+
 }
 
 .table-cell{
@@ -42,4 +44,21 @@
   background-color: white;
   position: sticky;
   top: 0;
+}
+
+.sticky-header {
+  height: 60px;
+  text-decoration: underline;
+  display:flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000; 
+  padding: 10px;
+  border-bottom: 1px solid #ccc; 
+}
+
+.languages {
+  padding: 10px;
 }
