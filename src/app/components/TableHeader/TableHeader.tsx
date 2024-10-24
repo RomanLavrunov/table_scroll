@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import arrow from '../../../../public/assets/images/icons/arrow.svg'
-import { DocumentGeneric } from '@/app/useData';
 
 interface TableHeaderProps<T> {
   headers: Array<keyof T>;
