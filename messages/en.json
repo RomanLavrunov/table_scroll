@@ -1,5 +1,7 @@
 {
     "Home": {
+        "title":"Welcome to the world of the dynamic tables",
+        "documents": "Documents",
         "headerTitle": {
             "index": "Index",
             "state": "State",
@@ -13,7 +15,7 @@
         "document": {
             "state": {
                 "SUBMITTED": "Submitted",
-                "IN_PROCESS": "In provcess",
+                "IN_PROCESS": "In process",
                 "ADDITIONAL_REVIEW": "Additional Review",
                 "REVIEW_COMPLETED": "Review Complted",
                 "INVALID": "Invalid"

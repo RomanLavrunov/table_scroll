@@ -1,19 +1,16 @@
 import { useTranslations } from 'next-intl';
-import { DocumentGeneric } from '@/app/useData';
 import { forwardRef } from 'react';
+import { IDocument } from '@/utilities/dataStorage/data.types';
 
-interface TableRowProps<T> {
-  document: DocumentGeneric<T>;
+interface TableRowProps {
+  document: IDocument;
   index: number;
-  headers: (keyof DocumentGeneric<T>)[];
+  headers: (keyof IDocument)[];
   coordinatePoint: number;
   ref?: React.Ref<HTMLTableRowElement>; 
 }
 
-const TableRow = <T extends string>(
-  { document, index, headers, coordinatePoint }: TableRowProps<T>,
-  ref: React.Ref<HTMLTableRowElement> 
-) => {
+const TableRow = ({ document, index, headers, coordinatePoint }: TableRowProps,ref: React.Ref<HTMLTableRowElement>) => {
   const t = useTranslations("Home");
 
   if (headers.length === 0 || !document) {
@@ -31,9 +28,9 @@ const TableRow = <T extends string>(
           {key as string === 'index' ? (
             index + 1 + coordinatePoint
           ) : key === 'state' ? (
-            t(`document.state.${document[key as keyof DocumentGeneric<T>]}`)
+            t(`document.state.${document[key as keyof IDocument]}`)
           ) : (
-            document[key as keyof DocumentGeneric<T>] as React.ReactNode
+            document[key as keyof IDocument] as React.ReactNode
           )}
         </td>
       ))}

@@ -1,28 +1,52 @@
-import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import eventEmitter from '@/utilities/emitters/EventEmitter';
 import arrow from '../../../../public/assets/images/icons/arrow.svg'
+import { IDocument } from '@/utilities/dataStorage/data.types';
+import { SortData } from '@/utilities/sort/sort.types';
 
-interface TableHeaderProps<T> {
-  headers: Array<keyof T>;
-  tableHeader: keyof T;
-  isAscending: boolean;
-  sortHandler: (key: keyof T | 'index') => void;
-}
+const headers = ["index", "state", "id", "documentName", "documentDate", "stateTime", "documentNumber", "documentTotalAmount"] as (keyof IDocument)[];
 
-const TableHeader = <T extends object>({ headers, tableHeader, isAscending, sortHandler }: TableHeaderProps<T>) => {
+const TableHeader = () => { 
+  const [sortData, setSortData] = useState<SortData>({tableHeader:'id', isAscending:true, currentCoordinates:{start:0, end:200}})
   const t = useTranslations("Home");
+  
+  const sortHandler = useCallback((header: keyof IDocument | 'index'): void => {
+    if (header === "index") return;
+    setSortData((prev) => ({
+      ...prev,
+      tableHeader: header as keyof IDocument,
+      isAscending: prev?.tableHeader === header ? !prev?.isAscending : true,
+    }));
+  }, []);
+
+  useEffect(() => {
+    //@ts-ignore
+    eventEmitter.emit('sendSortData', sortData);
+  }, [sortData])
+
 
   return (
     <tr className='table-header-row'>
-      {headers.map((header) => (
-        <th key={header as string} className='table-header' scope='col' onClick={() => sortHandler(header)}>
-          {t(`headerTitle.${header as string}`)}
-          {(header === tableHeader || tableHeader === `${header as string}Millis`) && (
-            <Image className={isAscending ? "arrow-up" : "arrow-down"} src={arrow} alt='sort direction arrow' />
-          )}
-        </th>
-      ))}
+    {headers.map((header) => {
+       if(sortData) {
+        let {tableHeader, isAscending} = sortData;
+        return (
+          <th key={header} className='table-header' scope='col' onClick={() => sortHandler(header)}>
+            {t(`headerTitle.${header}`)} 
+            {(header === tableHeader) && (
+              <Image
+                className={isAscending ? "arrow-up" : "arrow-down"}
+                src={arrow}
+                alt='sort direction arrow'
+              />
+            )}
+          </th>
+        );}
+      })}
     </tr>
   );
 };
+
 export default TableHeader;

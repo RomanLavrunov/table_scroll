@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { sortArray } from "../src/utils/sort.ts";
-import { DocumentState } from "../src/app/useData.tsx";
+import { sortArray } from "../src/utilities/sort/sort.ts";
+import { IDocumentState } from "../src/app/hooks/useData.tsx";
 
 const data = [{
     "id": 1,
@@ -58,12 +58,12 @@ describe('Sort by object key value', () => {
                 {
                     sortKey: "state",
                     isAscending: true,
-                    expectedValue: [DocumentState.inProcess, DocumentState.submitted]
+                    expectedValue: [IDocumentState.inProcess, IDocumentState.submitted]
                 },
                 {
                     sortKey: "state",
                     isAscending: false,
-                    expectedValue: [DocumentState.submitted,DocumentState.inProcess]
+                    expectedValue: [IDocumentState.submitted,IDocumentState.inProcess]
                 },
                 {
                     sortKey: "stateTime",

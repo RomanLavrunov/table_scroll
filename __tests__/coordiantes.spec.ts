@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { shiftArrayCoordinates } from "../src/utils/shiftArrayCoordinates.ts";
+import { shiftArrayCoordinates } from "../src/utilities/shiftArrayCoordinates.ts";
 
 describe('shiftArrayCoordinates functionality', () => {
     const parentArrayLength = 10;
