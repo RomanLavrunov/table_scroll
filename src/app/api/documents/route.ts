@@ -57,7 +57,7 @@ const createStream = (path: string) => {
 }
 
 export async function GET(req: NextRequest) {
-  const path = `${process.env.API_URL_100K}`;
+  const path = `${process.env.API_URL_2M}`;
   const { searchParams } = new URL(req.url);
   const sortParam = searchParams.get("sort");
 

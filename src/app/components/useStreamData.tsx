@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef, useLayoutEffect} from "react";
 import { IDocument } from "../../utilities/dataStorage/data.types";
 import { ChunkHandler } from "@/utilities/streammig/chunkHandler";
 import eventEmitter from "@/utilities/emitters/EventEmitter";
@@ -88,6 +88,10 @@ export const useStream = () => {
 
   }, [sortData]);
 
+  useLayoutEffect(()=>{
+    eventEmitter.emit('sendInitSortData', sortData);
+  },[])
+
   useEffect(() => {
 
     const handleCurrentCoordinates = (currentCoordinates: CurrentCoordinates) => {
@@ -119,5 +123,5 @@ export const useStream = () => {
     eventEmitter.emit('updateDocumentAmount',documentAmount)
   }, [documentAmount]);
 
-  return { data, ready, documentAmount, currentCoordinates: sortData.currentCoordinates };
+  return { data, ready, documentAmount, currentCoordinates: sortData.currentCoordinates, sortData };
 };
