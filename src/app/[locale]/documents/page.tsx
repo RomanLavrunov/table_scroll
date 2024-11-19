@@ -19,26 +19,16 @@ const headers = ["index", "state", "id", "documentName", "documentDate", "stateT
 const shiftStep: number = 40;
 
 export default function Table() {
-  const { data, ready, currentCoordinates } = useStream();
+  const { data, ready, currentCoordinates, documentAmount } = useStream();
   const t = useTranslations("Home");
   const mainContainerRef = useRef<HTMLDivElement | null>(null);
-
-  const [documentAmount, setDocumentAmount] = useState<number>(0)
-
-  useEffect(()=>{
-    //@ts-ignore
-    eventEmitter.on('updateDocumentAmount',(documentAmount)=>setDocumentAmount(documentAmount))
-
-    return () => {
-      eventEmitter.unsubscribe('updateDocumentAmount');
-    }
-  },[documentAmount])
 
   const firstIndex = 10;
   const lastIndex = data.length - 11;
 
   const firstElementRef = useVisibility((isVisible: boolean) => {
     if (isVisible) {
+      console.log("first visible")
       if (currentCoordinates.start === 0) return;
       if (mainContainerRef.current) {
         mainContainerRef.current.scrollTo({
@@ -46,7 +36,7 @@ export default function Table() {
           left: 0,
         });
         const newShiftStep = -shiftStep;
-        
+  
         const newCoordinates = shiftArrayCoordinates({ currentCoordinates, parentArrayLength:documentAmount, shiftStep: newShiftStep })
         eventEmitter.emit('sendCurrentCoordinates', newCoordinates);
       }
@@ -54,9 +44,8 @@ export default function Table() {
   }, [currentCoordinates])
 
   const lastElementRef = useVisibility((isVisible: boolean) => {
-
     if (isVisible) {
-      if (currentCoordinates.end === data.length - 1) return;
+      if (currentCoordinates.end === documentAmount - 1) return;
       if (mainContainerRef.current) {
         mainContainerRef.current.scrollTop = Math.max(
           mainContainerRef.current.scrollTop * 0.7,
@@ -83,9 +72,9 @@ export default function Table() {
           <Link className='nav-link' href={'/'}>
             <Image src={returnArrow} alt="return arrow" />
           </Link>
-          <Link className='nav-link' href={'/mock'} locale="en">EN</Link>
-          <Link className='nav-link' href={'/mock'} locale="ru">RU</Link>
-          <Link className='nav-link' href={'/mock'} locale="et">ET</Link>
+          <Link className='nav-link' href={'/documents'} locale="en">EN</Link>
+          <Link className='nav-link' href={'/documents'} locale="ru">RU</Link>
+          <Link className='nav-link' href={'/documents'} locale="et">ET</Link>
         </nav>
         <p style={{ margin: 20 }}>{ready ? "Ready" : "Not ready"}</p>
         <SearchBar />
