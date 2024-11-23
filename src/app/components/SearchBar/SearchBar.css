@@ -21,16 +21,33 @@
     padding-right: 3rem;
     height: 2.5rem;
     outline: none;
-    background-color: rgba(128, 128, 128, 3%);
+    background-color: rgba(94, 94, 94, 0.109);
     border: none;
     border-radius: 10px;
     font-size: 0.875rem;
     line-height: 1.25rem;
-    width: 20%;
-    /* max-width: 100%; */
+    width: 30%;
     transition: width 200ms cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.089);
   }
+
+  .search-bar__input--disabled {
+    cursor: text;
+    padding: 0.8rem;
+    padding-right: 3rem;
+    height: 2.5rem;
+    outline: none;
+    background-color: rgba(244, 8, 8, 0.03);
+    border: none;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    width: 30%;
+    transition: width 200ms cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.089);
+  }
+
+
   
   .search-bar__input:focus {
     width: 50%;

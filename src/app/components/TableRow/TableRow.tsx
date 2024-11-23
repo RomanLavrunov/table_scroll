@@ -1,6 +1,7 @@
+import { IDocument } from '@/shared/utilities/dataStorage/data.types';
 import { useTranslations } from 'next-intl';
 import { forwardRef } from 'react';
-import { IDocument } from '@/utilities/dataStorage/data.types';
+
 
 interface TableRowProps {
   document: IDocument;

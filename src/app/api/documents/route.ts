@@ -1,6 +1,7 @@
-import { IDocument } from "@/utilities/dataStorage/data.types";
-import dataStorage from "@/utilities/dataStorage/DataStorage";
-import { ChunkHandler } from "@/utilities/streammig/chunkHandler";
+
+import { IDocument } from "@/shared/utilities/dataStorage/data.types";
+import dataStorage from "@/shared/utilities/dataStorage/DataStorage";
+import { ChunkHandler } from "@/shared/utilities/streammig/chunkHandler";
 import { NextRequest, NextResponse } from "next/server";
 
 const createStream = (path: string) => {
@@ -49,7 +50,7 @@ const createStream = (path: string) => {
             })}`
           )
         );
-        dataStorage.downloaded = true;
+        dataStorage.isDownloaded = true;
         controller.close();
       }
     },
@@ -57,29 +58,32 @@ const createStream = (path: string) => {
 }
 
 export async function GET(req: NextRequest) {
-  const path = `${process.env.API_URL_2M}`;
+  const path = `${process.env.API_URL_100K}`;
   const { searchParams } = new URL(req.url);
   const sortParam = searchParams.get("sort");
 
-  let sortData = null;
+  let searchQuery = null;
   if (sortParam) {
     try {
-      sortData = JSON.parse(sortParam);
+      searchQuery = JSON.parse(sortParam);
     } catch (error) {
       console.error("Error parsing JSON:", error);
     }
   }
 
   if (dataStorage.storage.length) {
+    let filteredDocuments: IDocument[] = [];
 
-    console.log("CACHE DATA IN USE")
-    if (sortData) {
-      let filteredDocuments: IDocument[] = dataStorage.setSortData(sortData);
+    if(searchQuery){
+      const {searchValue, sortData, locale} = searchQuery;
+      filteredDocuments = dataStorage.filterAndSortDocuments(sortData, searchValue, locale);
+    }
+     
       return NextResponse.json([
         filteredDocuments,
         { ready: true, documentAmount: dataStorage.documentAmout },
       ]);
-    }
+    
   }
 
   const stream = createStream(path);

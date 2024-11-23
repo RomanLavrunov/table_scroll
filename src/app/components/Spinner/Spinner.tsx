@@ -2,8 +2,8 @@ import './Spinner.css';
 
 const Spinner = () => {
     return (<tr>
-        <td>
-            <div className="loader"></div>
+        <td className="loader">
+            <div className="loader-animation"></div>
             <div className="loader-text">Loading...</div>
         </td>
     </tr>)

@@ -1,14 +1,15 @@
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useDebouncedValue } from '@/app/hooks/useDebouncedValue';
-import eventEmitter from '@/utilities/emitters/EventEmitter';
 import close from '../../../../public/assets/images/icons/close-one.svg'
 import magnifyingGlass from '../../../../public/assets/images/icons/magnifying-glass.svg';
 import './SearchBar.css'
+import eventEmitter from '@/shared/utilities/emitters/EventEmitter';
 
 
 const SearchBar = (): JSX.Element => {
   const [searchText, setSearchText] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
@@ -16,35 +17,46 @@ const SearchBar = (): JSX.Element => {
 
   const clearSearch = () => {
     setSearchText('');
+    eventEmitter.emit('sendSearchValue', ""); 
   };
 
   const debouncedSearchTerm = useDebouncedValue(searchText, 500);
 
-  const imageProps = useMemo(() => ({
+  const iconProps = useMemo(() => ({
       className: `search-bar__icon ${!searchText ? '' : 'close-sign'}`,
       src: !searchText ? magnifyingGlass : close,
-      onClick: !searchText ? () => void (0) : () => clearSearch()
+      onClick: searchText ? () => clearSearch() : () => void (0)
   }), [searchText]);
+
 
   useEffect(() => {
     //@ts-ignore
-    eventEmitter.emit('sendSearchText', searchText); 
+    eventEmitter.on('activateSearchFilterOptions', (isLoading:boolean)=>setIsDisabled(!isLoading))
     return () => {
-      eventEmitter.unsubscribe('sendSearchText');
+      eventEmitter.unsubscribe('activateSearchFilterOptions');
     };
-  },[searchText])
+  },[])
+
+
+  useEffect(()=>{
+    eventEmitter.emit('sendSearchValue', debouncedSearchTerm);
+  },[debouncedSearchTerm])
+  
+  const inputClassName = `search-bar__input${isDisabled ? '--disabled' : ''}`;
+
 
   return (
     <>
       <div className="search-bar-container">
         <div className="search-bar">
           <input
+            disabled={isDisabled}
             type="text"
-            className="search-bar__input"
+            className={inputClassName}
             value={searchText}
             onChange={handleChange}
           />
-          {<Image alt="" {...imageProps} />}
+          {<Image alt="" {...iconProps} />}
         </div>
       </div>
     </>
