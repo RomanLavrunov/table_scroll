@@ -2,6 +2,9 @@
     position: absolute;
     top:50%;
     left:50%;
+  }
+
+  .loader-animation {
     border: 10px solid #f3f3f3;
     border-top: 10px solid #343638;
     border-radius: 50%;
@@ -10,11 +13,10 @@
     animation: spin 1s linear infinite;
   }
 
+
   .loader-text{
+    padding: 20px 0;
     font-size: larger;
-    position: absolute;
-    top:62%;
-    left:50.1%;
   }
 
   

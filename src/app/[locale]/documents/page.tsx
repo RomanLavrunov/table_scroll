@@ -2,18 +2,20 @@
 import './page.css';
 import { useStream } from "@/app/components/useStreamData";
 import TableHeader from "@/app/components/TableHeader/TableHeader";
-import { IDocument } from "@/utilities/dataStorage/data.types";
 import TableRow from "@/app/components/TableRow/TableRow";
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import returnArrow from '../../../../public/assets/images/icons/return_arrow.svg';
-import eventEmitter from '@/utilities/emitters/EventEmitter';
 import { Link } from "@/i18n/routing";
 import SearchBar from '@/app/components/SearchBar/SearchBar';
 import { useTranslations } from 'next-intl';
 import { useVisibility } from '@/app/hooks/useVisibility';
 import Spinner from '@/app/components/Spinner/Spinner';
-import { shiftArrayCoordinates } from '@/utilities/shiftArrayCoordinates';
+import { shiftArrayCoordinates } from '@/shared/utilities/shiftArrayCoordinates';
+import eventEmitter from '@/shared/utilities/emitters/EventEmitter';
+import { IDocument } from '@/shared/utilities/dataStorage/data.types';
+import { MissingTable } from '@/app/components/MissingTable/MissingTable';
+
 
 const headers = ["index", "state", "id", "documentName", "documentDate", "stateTime", "documentNumber", "documentTotalAmount"] as (keyof IDocument)[];
 const shiftStep: number = 40;
@@ -28,7 +30,6 @@ export default function Table() {
 
   const firstElementRef = useVisibility((isVisible: boolean) => {
     if (isVisible) {
-      console.log("first visible")
       if (currentCoordinates.start === 0) return;
       if (mainContainerRef.current) {
         mainContainerRef.current.scrollTo({
@@ -63,7 +64,10 @@ export default function Table() {
     [lastIndex]: lastElementRef,
   };
 
-  const filteredData = data.filter((document) => document && document.id);
+  const missingTableRender = () => {
+    if(!data.length && !ready) return <Spinner />
+    if(!data.length && ready) return <MissingTable/>
+  }
 
   console.log(documentAmount)
   return (
@@ -77,7 +81,7 @@ export default function Table() {
           <Link className='nav-link' href={'/documents'} locale="ru">RU</Link>
           <Link className='nav-link' href={'/documents'} locale="et">ET</Link>
         </nav>
-        <p style={{ margin: 20 }}>{ready ? "Ready" : "Not ready"}</p>
+        <p className='progress-track' style={{ margin: 20 }}>{ready ? "Ready" : (<span className="dots">Loading</span>)}</p>
         <SearchBar />
       </div>
       <table>
@@ -85,7 +89,7 @@ export default function Table() {
           <TableHeader />
         </thead>
         <tbody style={{ width: '100vw' }}>
-          {(!data.length || filteredData.length === 0) && <Spinner />}
+          {missingTableRender()}
           {data.map((document, i) => (
             document && document.id ? (
               <TableRow
