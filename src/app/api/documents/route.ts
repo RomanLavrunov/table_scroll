@@ -1,8 +1,15 @@
 
+<<<<<<< HEAD
 import { IDocument } from "@/shared/utilities/dataStorage/data.types";
 import dataStorage from "@/shared/utilities/dataStorage/DataStorage";
 import { ChunkHandler } from "@/shared/utilities/streammig/chunkHandler";
 import { NextRequest, NextResponse } from "next/server";
+=======
+import { IDocument } from '../../../shared/utilities/dataStorage/data.types';
+import {ChunkHandler} from '../../../shared/utilities/streammig/chunkHandler'
+import { NextRequest, NextResponse } from "next/server";
+import dataStorage from '../../../shared/utilities/dataStorage/DataStorage';
+>>>>>>> Project migration
 
 const createStream = (path: string) => {
   return new ReadableStream({

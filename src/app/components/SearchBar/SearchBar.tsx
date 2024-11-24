@@ -1,10 +1,20 @@
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
+<<<<<<< HEAD
 import { useDebouncedValue } from '@/app/hooks/useDebouncedValue';
 import close from '../../../../public/assets/images/icons/close-one.svg'
 import magnifyingGlass from '../../../../public/assets/images/icons/magnifying-glass.svg';
 import './SearchBar.css'
 import eventEmitter from '@/shared/utilities/emitters/EventEmitter';
+=======
+import { useDebouncedValue} from '../../hooks/useDebouncedValue';
+import close from '../../../../public/assets/images/icons/close-one.svg'
+import magnifyingGlass from '../../../../public/assets/images/icons/magnifying-glass.svg';
+import './SearchBar.css'
+import eventEmitter from '../../../shared/utilities/emitters/EventEmitter';
+import React from 'react';
+
+>>>>>>> Project migration
 
 
 const SearchBar = (): JSX.Element => {

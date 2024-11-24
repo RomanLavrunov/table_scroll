@@ -2,6 +2,10 @@ import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import {unstable_setRequestLocale} from 'next-intl/server';
 import { getMessages } from 'next-intl/server';
+<<<<<<< HEAD
+=======
+import React from "react";
+>>>>>>> Project migration
 
 interface RootLayoutProps {
   children: React.ReactNode;

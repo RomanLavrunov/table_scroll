@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 import { expect } from "chai";
 import { shiftArrayCoordinates } from "../src/utilities/shiftArrayCoordinates.ts";
+=======
+
+import { expect } from "chai";
+import { beforeEach, describe, it } from "node:test";
+import { shiftArrayCoordinates } from "../src/shared/utilities/shiftArrayCoordinates";
+
+>>>>>>> Project migration
 
 describe('shiftArrayCoordinates functionality', () => {
     const parentArrayLength = 10;

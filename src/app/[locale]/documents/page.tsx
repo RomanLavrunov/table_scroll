@@ -1,20 +1,21 @@
-'use client'
-import './page.css';
-import { useStream } from "@/app/components/useStreamData";
-import TableHeader from "@/app/components/TableHeader/TableHeader";
-import TableRow from "@/app/components/TableRow/TableRow";
-import { useRef } from 'react';
-import Image from 'next/image';
-import returnArrow from '../../../../public/assets/images/icons/return_arrow.svg';
-import { Link } from "@/i18n/routing";
-import SearchBar from '@/app/components/SearchBar/SearchBar';
+
 import { useTranslations } from 'next-intl';
-import { useVisibility } from '@/app/hooks/useVisibility';
-import Spinner from '@/app/components/Spinner/Spinner';
-import { shiftArrayCoordinates } from '@/shared/utilities/shiftArrayCoordinates';
-import eventEmitter from '@/shared/utilities/emitters/EventEmitter';
-import { IDocument } from '@/shared/utilities/dataStorage/data.types';
-import { MissingTable } from '@/app/components/MissingTable/MissingTable';
+import './page.css';
+import React, { useRef } from 'react';
+import { useStream } from '../../components/useStreamData';
+import eventEmitter from '../../../shared/utilities/emitters/EventEmitter';
+import { shiftArrayCoordinates } from '../../../shared/utilities/shiftArrayCoordinates'
+import { MissingTable } from '../../components/MissingTable/MissingTable';
+import { useVisibility } from '../../hooks/useVisibility';
+import TableHeader from '../../components/TableHeader/TableHeader';
+import TableRow from '../../components/TableRow/TableRow';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Spinner from '../../components/Spinner/Spinner';
+import Image from 'next/image';
+import { Link } from '../../../i18n/routing';
+import returnArrow from '../../../../public/assets/images/icons/return_arrow.svg';
+import { IDocument } from '../../../shared/utilities/dataStorage/data.types';
+
 
 
 const headers = ["index", "state", "id", "documentName", "documentDate", "stateTime", "documentNumber", "documentTotalAmount"] as (keyof IDocument)[];
@@ -22,7 +23,8 @@ const shiftStep: number = 40;
 
 export default function Table() {
   const { data, ready, currentCoordinates, documentAmount } = useStream();
-  const t = useTranslations("Home");
+
+  const t = useTranslations("Service");
   const mainContainerRef = useRef<HTMLDivElement | null>(null);
 
   const firstIndex = 10;
@@ -37,8 +39,8 @@ export default function Table() {
           left: 0,
         });
         const newShiftStep = -shiftStep;
-  
-        const newCoordinates = shiftArrayCoordinates({ currentCoordinates, parentArrayLength:documentAmount, shiftStep: newShiftStep })
+
+        const newCoordinates = shiftArrayCoordinates({ currentCoordinates, parentArrayLength: documentAmount, shiftStep: newShiftStep })
         eventEmitter.emit('sendCurrentCoordinates', newCoordinates);
       }
     }

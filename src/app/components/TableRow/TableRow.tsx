@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { IDocument } from '@/shared/utilities/dataStorage/data.types';
 import { useTranslations } from 'next-intl';
+=======
+import {IDocument} from '../../../shared/utilities/dataStorage/data.types'
+import { useTranslations } from 'next-intl';
+import React from 'react';
+>>>>>>> Project migration
 import { forwardRef } from 'react';
 
 

@@ -2,9 +2,16 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import arrow from '../../../../public/assets/images/icons/arrow.svg'
+<<<<<<< HEAD
 import { IDocument } from '@/shared/utilities/dataStorage/data.types';
 import { SortData } from '@/shared/utilities/sort/sort.types';
 import eventEmitter from '@/shared/utilities/emitters/EventEmitter';
+=======
+import {SortData} from '../../../shared/utilities/sort/sort.types'
+import React from 'react';
+import { IDocument } from '../../../shared/utilities/dataStorage/data.types';
+import eventEmitter from '../../../shared/utilities/emitters/EventEmitter';
+>>>>>>> Project migration
 
 
 const headers = ["index", "state", "id", "documentName", "documentDate", "stateTime", "documentNumber", "documentTotalAmount"] as (keyof IDocument)[];
